@@ -10,23 +10,23 @@ const PORT = 8000
 const app = express()
 
 // set url
-//const url = 'https://www.theguardian.com/uk'
-const url = 'https://boards.greenhouse.io/rubiconmd'
+const url = "http://cs.wheatoncollege.edu/mgousie/comp212.html"
 axios(url)
     .then(response => {
         const html = response.data
         const $ = cheerio.load(html)
         const articles = []
 
-        $('.opening', html).each(function(){
-            const title = $(this).text()
-            const url = $(this).find('a').attr('href')
-            if (title.includes("Remote")) {
+        $('.card-content').each(function(){
+            const title = $(this).find('h2').text()
+
             articles.push({
-                title, url
+                title
             })
-        }
+            
         })
+        
+        // print out array in console
         console.log(articles)
     }).catch(err => console.log(err))
 
